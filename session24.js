@@ -286,4 +286,113 @@ function playgame(player1, player2){
     }
 }
 
-playgame('rock', 'paper')
+playgame('rock', 'paper');
+
+// Coding Challenge #6 Triangle Type Detector
+function triangleType(a, b, c){
+    if(a === b && b === c){
+        return 'Equilateral';
+    } else if(a === b && b != c || a != c && b === c ){
+        return 'Isosceles';
+    } else if( a !== b && b !== c && a !== c){
+        return 'Scalene';
+    } else if (a + b < c || b + c < a || a + c < b){
+        return 'Not a triangle';
+    }
+
+}
+
+console.log(triangleType(3, 3, 3));
+console.log(triangleType(3, 3, 5));
+console.log(triangleType(3, 4, 5));
+console.log(triangleType(1, 2, 3));
+
+// Coding Challenge #7 Bank Transaction System
+function processTransaction(balance, amount, transactionType){
+    let newAmount = balance - amount;
+    let new1Amount = balance + amount;
+    
+    if(transactionType === 'withdraw' && amount <= balance){
+        return `New balance is ${newAmount}`;
+    } else if(transactionType === 'withdraw' && amount > balance){
+        return 'Insufficient funds.'
+    } else if(transactionType === 'deposit'){
+        return `New balance is: ${new1Amount}`;
+    } else if(transactionType !== 'withdraw' && transactionType !== 'deposit'){
+        return 'Invalid transaction type';
+    }
+}
+
+console.log(processTransaction(500, 200, 'withdraw'));
+
+// switch version
+function processTransaction(balance, amount, transactionType) {
+    let newBalance;
+
+    switch (transactionType) {
+        case 'withdraw':
+            if (amount <= balance) {
+                newBalance = balance - amount;
+                return `New balance is ${newBalance}`;
+            } else {
+                return 'Insufficient funds.';
+            }
+
+        case 'deposit':
+            newBalance = balance + amount;
+            return `New balance is: ${newBalance}`;
+
+        default:
+            return 'Invalid transaction type';
+    }
+}
+
+
+// Coding Challenge #7 Hotel Room Pricing System
+function getRoomPrice(type, isWeekend, hasDiscount) {
+    const prices = {
+        Standard: { weekday: 100, weekend: 120 },
+        Deluxe: { weekday: 150, weekend: 180 },
+        Suite: { weekday: 200, weekend: 250 }
+    };
+
+    if (!prices[type]) {
+        return 'Invalid room type';
+    }
+
+    let price = isWeekend ? prices[type].weekend : prices[type].weekday;
+
+    
+    if (hasDiscount) {
+        price *= 0.9; 
+    }
+
+    return price;
+}
+
+
+// switch version
+function getRoomPrice(type, isWeekend, hasDiscount) {
+    let price;
+
+    switch (type) {
+        case 'Standard':
+            price = isWeekend ? 120 : 100;
+            break;
+        case 'Deluxe':
+            price = isWeekend ? 180 : 150;
+            break;
+        case 'Suite':
+            price = isWeekend ? 250 : 200;
+            break;
+        default:
+            return 'Invalid room type';
+    }
+
+    // Apply discount if applicable
+    if (hasDiscount) {
+        price *= 0.9; // 10% discount
+    }
+
+    return price;
+}
